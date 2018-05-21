@@ -90,14 +90,14 @@ For instance, the `expr` parser is created as shown below:
 ```
         expr =
                 (input) -> {
-                    final List&lt;Pair&lt;Integer, String&gt;&gt; res0 = parse(term, input);
+                    final List<Pair<Integer, String>> res0 = parse(term, input);
                     if (res0 == null || res0.isEmpty()) {
                         throw new IllegalStateException("expected term");
                     }
 
                     final Integer value = res0.get(0).first();
                     final String rest = res0.get(0).second();
-                    final List&lt;Pair&lt;String, String&gt;&gt; res1 = parse(symbol("+"), res0.get(0).second());
+                    final List<Pair<String, String>> res1 = parse(symbol("+"), res0.get(0).second());
 
                     if (res1 == null || res1.isEmpty()) {
                         return List.of(new Pair<>(value, rest));
@@ -125,8 +125,8 @@ more times:
     // parser
     public static Parser<String> many(final Parser<String> parser) {
         return (input) -> {
-            List&lt;Pair&lt;String, String&gt;&gt; res = List.of(new Pair<>("", input));
-            List&lt;Pair&lt;String, String&gt;&gt; res1 = null;
+            List<Pair<String, String>> res = List.of(new Pair<>("", input));
+            List<Pair<String, String>> res1 = null;
             String inputCopy = input;
 
             while (true) {
@@ -155,7 +155,7 @@ For a final example, here is an example of how the` orElse` combinator works:
     @Test
     public void testOrElse() {
         // a parser that extracts the first and third characters
-        final Parser&lt;Pair&lt;Character, Character&gt;&gt; three =
+        final Parser<Pair<Character, Character>> three =
                 (input) -> {
                     if (input == null || input.length() < 3) {
                         return List.of();
@@ -169,7 +169,7 @@ For a final example, here is an example of how the` orElse` combinator works:
                 };
 
         // a parser that extracts the first and second characters
-        final Parser&lt;Pair&lt;Character, Character&gt;&gt; two =
+        final Parser<Pair<Character, Character>> two =
                 (input) -> {
                     if (input == null || input.length() < 2) {
                         return List.of();
@@ -201,7 +201,7 @@ chained together to arbitrary lengths, provided the types match up:
 
     // try the first parser, and if it fails, try the second one.
     // this can be chained arbitrarily long.
-    default Parser&lt;P&gt; orElse(final Parser&lt;P&gt; otherParser) {
+    default Parser<P> orElse(final Parser<P> otherParser) {
         return (input) -> {
             final List<Pair<P, String>> res = parse(input);
             if (res == null || res.isEmpty()) {

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/timmyjose/JavaParserCombinators.svg?branch=master)](https://travis-ci.org/timmyjose/JavaParserCombinators)
+
 # An experimental Parser Combinator framework in Java
 
 This is an experiment in implementing a simple and Functional Parser Combinator framework
